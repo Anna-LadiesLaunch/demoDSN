@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Disneyland Training Courses</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Disneyland Training Courses</h1>
+    <p>Learn about the different training courses available to Disneyland employees.</p>
+  </header>
+  <main>
+    <section class="courses">
+      <h2>Courses</h2>
+      <div class="card">
+        <h3>Disney Traditions</h3>
+        <p>This foundational course covers the history and culture of Disney, as well as the company's commitment to customer service.</p>
+        <a href="#">Learn More</a>
+      </div>
+      <div class="card">
+        <h3>Attractions Training</h3>
+        <p>This course teaches employees about the different attractions in the park, including their history, operation, and safety procedures.</p>
+        <a href="#">Learn More</a>
+      </div>
+      <div class="card">
+        <h3>Guest Services Training</h3>
+        <p>This course teaches employees how to interact with guests in a positive and helpful way.</p>
+        <a href="#">Learn More</a>
+      </div>
+      <div class="card">
+        <h3>Food and Beverage Training</h3>
+        <p>This course teaches employees about the different food and beverage offerings in the park, as well as the safety and sanitation procedures.</p>
+        <a href="#">Learn More</a>
+      </div>
+      <div class="card">
+        <h3>Retail Training</h3>
+        <p>This course teaches employees about the different merchandise offerings in the park, as well as the sales and customer service procedures.</p>
+        <a href="#">Learn More</a>
+      </div>
+    </section>
+</main>
+<footer>
+  <p>Copyright &copy; 2023 Disneyland</p>
+</footer>
+<script>
+    function toRad(x) {
+      return x * Math.PI / 180;
+    }
+  
+    function haversineDistance(coords1, coords2) {
+      const [lat1, lon1] = coords1;
+      const [lat2, lon2] = coords2;
+      const R = 6371; // Radius of Earth in km
+  
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  
+      return R * c * 1000; // distance in meters
+    }
+  
+    function getLocation() {
+      if (!navigator.geolocation) {
+        alert("Geolocation is not supported by this browser.");
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(showPosition);
+    }
+  
+    function showPosition(position) {
+      const userCoords = [position.coords.latitude, position.coords.longitude];
+      const objects = [
+        { coords: [51.393940, -0.7684024], link: "https://learningmanager.adobe.com/app/learner?19360#/learningProgram/103262" },
+        { coords: [51.394928, -0.7694024], link: "https://learningmanager.adobe.com/app/learner?19360#/learningProgram/103265" },
+        { coords: [51.487554, -0.144249], link: "https://www.link3.com" },
+        { coords: [51.5072, -0.1276], link: "https://www.link4.com" },
+        { coords: [51.5155, -0.1447], link: "https://www.link5.com" }
+      ];
+  
+      objects.forEach(object => {
+        const distance = haversineDistance(userCoords, object.coords);
+        if (distance <= 3000) { // Updated to 3000 meters
+          window.open(object.link, '_blank');
+        }
+      });
+    }
+  
+    // Initialize geolocation when the page loads
+    window.onload = getLocation;
+  </script>  
+</body>
+</html>
+
+
+
+
+
+
