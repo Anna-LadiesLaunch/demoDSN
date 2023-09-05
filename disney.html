@@ -43,6 +43,12 @@
   <p>Copyright &copy; 2023 Disneyland</p>
 </footer>
 <script>
+    // Function to request notification permission
+    function requestNotificationPermission() {
+      if (Notification.permission !== 'granted') {
+        Notification.requestPermission();
+      }
+    }
     function toRad(x) {
       return x * Math.PI / 180;
     }
@@ -80,18 +86,27 @@
   
       objects.forEach(object => {
         const distance = haversineDistance(userCoords, object.coords);
-        if (distance <= 3000) { // Updated to 3000 meters
+        if (distance <= 3000) { 
           window.open(object.link, '_blank');
+          // If permission is granted, show a notification
+          if (Notification.permission === 'granted') {
+            new Notification('You are near a training location!', {
+              body: `Click here to learn more about ${object.link}`,
+              icon: 'C:\Users\annap\OneDrive\Documents\PY 2\WIP\Some html files\disney\icon.png' // optional
+            });
+          }
         }
       });
     }
-  
-    // Initialize geolocation when the page loads
-    window.onload = getLocation;
-  </script>  
+
+    // Initialize geolocation and request notification permission when the page loads
+    window.onload = function() {
+      getLocation();
+      requestNotificationPermission();
+    };
+  </script>
 </body>
 </html>
-
 
 
 
